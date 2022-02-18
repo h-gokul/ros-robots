@@ -13,3 +13,11 @@ Robots in this repository:
 # rover
 - teleoperable rover modelled in solidworks with steering wheel integrated with a lidar.
  
+
+# Tutorials:
+
+## Installing catkin
+Follow steps 1 and 2 in this [wiki](https://wiki.ros.org/catkin#Installing_catkin)
+
+## Installing turtlebot
+run `sudo apt-get install ros-melodic-turtlebot-*`
