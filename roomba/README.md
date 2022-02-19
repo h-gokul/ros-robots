@@ -1,10 +1,17 @@
 # Obstacle Avoidance.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 This is $roomba$ package is a simple obstacle avoidance implementation of a turtle bot in a gazebo simulation environment.
 
 The robot reads the lidar scan data within it's field of view and based on a distance threshold, it determines the decision boundary to steer the course of it's navigation.  The robot has only two state of motion. When no obstacles are found, it moves straight. When an obstacle is at proximity, it moves to the left.
 
 1) Assuming that ROS is already installed in your system and a catkin workspace is created, copy paste the package in the catkin workspace.
+
+TurtleBot simulation files:
+```
+sudo apt-get install ros-${ROS_DISTRO}-turtlebot3-gazebo
+```
+
 
 2) Ensure that  the following lines are added in the `.bashrc` file in the home folder
 

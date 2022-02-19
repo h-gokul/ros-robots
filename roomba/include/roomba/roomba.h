@@ -29,9 +29,8 @@
  * @copyright Copyright (c) 2022
  *
  */
-// #ifndef INCLUDE_OBSTACLE_AVOIDANCE_OBSTACLE_AVOIDANCE_H_
-// #define INCLUDE_OBSTACLE_AVOIDANCE_OBSTACLE_AVOIDANCE_H_
 
+# pragma once
 #include <geometry_msgs/Twist.h>
 #include <ros/ros.h>
 #include <sensor_msgs/LaserScan.h>
@@ -62,7 +61,7 @@ public: // define the private members
 
   int _fov_degrees;             // Field of view 
   float _threshold;             // distance Threshold 
-  ros::Publisher _cmdvel_publisher;  // Velocity publisher
+  ros::Publisher cmd_vel_publisher;  // Velocity publisher
   geometry_msgs::Twist _vel;    // Velocity twist message
 
   /**
@@ -88,4 +87,3 @@ public: // define the private members
    */
   geometry_msgs::Twist navigate(const sensor_msgs::LaserScan& scan);
 };
-// #endif  // INCLUDE_OBSTACLE_AVOIDANCE_OBSTACLE_AVOIDANCE_H_

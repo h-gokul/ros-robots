@@ -46,7 +46,7 @@ MoveRoomba::~MoveRoomba() { // use destructor to delete variables from heap
 
 
 void MoveRoomba::__init__() { // defininig the init function
-  this->_cmdvel_publisher =
+  this->cmd_vel_publisher =
       this->_nh->advertise<geometry_msgs::Twist>("cmd_vel", this->_rate, this);
   this->_sub_scan = this->_nh->subscribe("scan", 1, &MoveRoomba::scan_callback, this);
 
@@ -56,23 +56,23 @@ void MoveRoomba::__init__() { // defininig the init function
   this->_vel.angular.x = 0;
   this->_vel.angular.y = 0;
   this->_vel.angular.z = 0;
-  this->_fov_degrees = 145;
-  this->_threshold = 0.1;
+  this->_fov_degrees = 125;
+  this->_threshold = 0.5;
 }
 
 void MoveRoomba::__start__() { // defininig the start function
   ros::Rate loop_rate(this->_rate);
   while (ros::ok()) {
-    ROS_INFO_STREAM("Roomba roams...");
+    ROS_DEBUG_STREAM("Roomba roams...");
     ros::spinOnce();
     loop_rate.sleep();
   }
 }
 
 void MoveRoomba::scan_callback(const sensor_msgs::LaserScan::ConstPtr& msg) {
-  ROS_INFO_STREAM("Received scan");
+  ROS_DEBUG_STREAM("Received scan");
   this->_vel = this->navigate(*msg);
-  _cmdvel_publisher.publish(this->_vel);
+  cmd_vel_publisher.publish(this->_vel);
 }
 
 geometry_msgs::Twist MoveRoomba::navigate(const sensor_msgs::LaserScan& lidarscan) {
@@ -85,10 +85,7 @@ geometry_msgs::Twist MoveRoomba::navigate(const sensor_msgs::LaserScan& lidarsca
       ROS_WARN_STREAM("[ALERT] Obstacle Detected");
       break;
     }
-    else
-    ROS_INFO_STREAM(" Sweeping the floor .. ");
   }
-
 
   if (isobstacle) { // turn left if there is an obstacle 
     this->_vel.linear.x = 0; 
