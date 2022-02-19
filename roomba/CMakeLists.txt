@@ -138,6 +138,7 @@ include
  add_executable(${PROJECT_NAME}_node 
  src/roomba_node.cpp
  src/roomba.cpp
+ src/teleoperate.cpp
  )
 
 ## Rename C++ executable without prefix

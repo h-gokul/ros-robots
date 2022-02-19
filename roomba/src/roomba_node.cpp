@@ -25,17 +25,21 @@
  * @author Gokul Hari
  * @brief main function for the roomba obstacle avoidance project
  * @version 1.0
- * @date 11-29-2022
+ * @date 02-18-2022
  * @copyright Copyright (c) 2022
  *
  */
 #include <roomba/roomba.h>
+#include <roomba/teleoperate.h>
 
 int main(int argc, char** argv) {
-  ros::init(argc, argv, "roomba_node");
+  int mode = 2;
   ros::NodeHandle* node_handler = new ros::NodeHandle();
-  MoveRoomba move(node_handler);
+  ros::init(argc, argv, "roomba_node");
 
+  if (mode ==1) Teleop teleop(node_handler);
+  else if (mode ==2) MoveRoomba move(node_handler);
+  
   delete node_handler; // delete from heap memory
   return 0;
 }

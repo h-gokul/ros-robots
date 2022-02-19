@@ -26,7 +26,7 @@
  * @author Gokul Hari
  * @brief Definitions of functions that perform obstacle avoidance in a roomba
  * @version 1.0
- * @date 11-29-2022
+ * @date 02-18-2022
  * @copyright Copyright (c) 2022
  *
  */
@@ -49,15 +49,15 @@ void MoveRoomba::__init__() { // defininig the init function
   this->cmd_vel_publisher =
       this->_nh->advertise<geometry_msgs::Twist>("cmd_vel", this->_rate, this);
   this->_sub_scan = this->_nh->subscribe("scan", 1, &MoveRoomba::scan_callback, this);
-
+  this->_fov = 125;
+  this->_threshold = 0.4;
   this->_vel.linear.x = 1;
   this->_vel.linear.y = 0;
   this->_vel.linear.z = 0;
   this->_vel.angular.x = 0;
   this->_vel.angular.y = 0;
   this->_vel.angular.z = 0;
-  this->_fov_degrees = 125;
-  this->_threshold = 0.5;
+
 }
 
 void MoveRoomba::__start__() { // defininig the start function
@@ -79,7 +79,7 @@ geometry_msgs::Twist MoveRoomba::navigate(const sensor_msgs::LaserScan& lidarsca
   bool isobstacle = false;
   
   // check for obstacles within the field of view and given distance threshold
-  for (int i = 0; i < this->_fov_degrees / 2; i++) {
+  for (int i = 0; i < this->_fov / 2; i++) {
     if ((lidarscan.ranges[i] <= this->_threshold) || (lidarscan.ranges[359 - i] <= _threshold)) {
       isobstacle = true;
       ROS_WARN_STREAM("[ALERT] Obstacle Detected");

@@ -1,3 +1,4 @@
+
 /**
  * MIT License
  *
@@ -31,49 +32,58 @@
  */
 
 # pragma once
-#include <geometry_msgs/Twist.h>
 #include <ros/ros.h>
-#include <sensor_msgs/LaserScan.h>
-#include <std_msgs/String.h>
+#include <geometry_msgs/Twist.h>
 
-#include <memory>
-#include <sstream>
-#include <string>
+class Teleop {
+    public:
+    explicit Teleop(ros::NodeHandle* nh);
+    ~Teleop();
 
-class MoveRoomba {
-public:
-  explicit MoveRoomba(ros::NodeHandle* nh);
-  ~MoveRoomba();
-  ros::NodeHandle* _nh;  // pointer of NodeHandle datatype 
+    ros::NodeHandle* _nh;  // pointer of NodeHandle datatype     
+    ros::Publisher cmdvel_publisher;
 
-public: // define the private members
-  int _rate =10;  // Rate of program
-  ros::Subscriber _sub_scan;  // Scan subscriber
-  int _fov;             // Field of view 
-  float _threshold;             // distance Threshold 
-  ros::Publisher cmd_vel_publisher;  // Velocity publisher
-  geometry_msgs::Twist _vel;    // Velocity twist message
+    int getch(void);
+    void teleoperate();
+    // Create Twist message
+    geometry_msgs::Twist twist;
 
-  /**
-   * @brief Declaring a initializer function
-   */
-  void __init__();
+    // Map for movement keys
+    std::map<char, std::vector<float>> moveBindings
+    {
+    {'i', {1, 0, 0, 0}},
+    {'o', {1, 0, 0, -1}},
+    {'j', {0, 0, 0, 1}},
+    {'l', {0, 0, 0, -1}},
+    {'u', {1, 0, 0, 1}},
+    {',', {-1, 0, 0, 0}},
+    {'.', {-1, 0, 0, 1}},
+    {'m', {-1, 0, 0, -1}},
+    {'O', {1, -1, 0, 0}},
+    {'I', {1, 0, 0, 0}},
+    {'J', {0, 1, 0, 0}},
+    {'L', {0, -1, 0, 0}},
+    {'U', {1, 1, 0, 0}},
+    {'<', {-1, 0, 0, 0}},
+    {'>', {-1, -1, 0, 0}},
+    {'M', {-1, 1, 0, 0}},
+    {'t', {0, 0, 1, 0}},
+    {'b', {0, 0, -1, 0}},
+    {'k', {0, 0, 0, 0}},
+    {'K', {0, 0, 0, 0}}
+    };
 
-  /**
-   * @brief Declaring the Main control loop of the program.
-   */
-  void __start__();
+    // Map for speed keys
+    std::map<char, std::vector<float>> speedBindings
+    {
+    {'q', {1.1, 1.1}},
+    {'z', {0.9, 0.9}},
+    {'w', {1.1, 1}},
+    {'x', {0.9, 1}},
+    {'e', {1, 1.1}},
+    {'c', {1, 0.9}}
+    };
 
-  /**
-   * @brief Perform operations on received scan data.
-   * @param msg
-   */
-  void scan_callback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
-  /**
-   * @brief Function to detect obstacle from scan points and take action.
-   * @param scan Laser scan
-   * @return geometry_msgs::Twist message to
-   */
-  geometry_msgs::Twist navigate(const sensor_msgs::LaserScan& scan);
 };
+
