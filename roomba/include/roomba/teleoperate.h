@@ -47,7 +47,7 @@ class Teleop {
     void teleoperate();
     // Create Twist message
     geometry_msgs::Twist twist;
-
+    int _rate = 10;
     // Map for movement keys
     std::map<char, std::vector<float>> moveBindings
     {
@@ -83,7 +83,5 @@ class Teleop {
     {'e', {1, 1.1}},
     {'c', {1, 0.9}}
     };
-
-
 };
 

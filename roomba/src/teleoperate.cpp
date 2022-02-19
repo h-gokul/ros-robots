@@ -29,18 +29,18 @@ float turn(1.0); // Angular velocity
 float x(0), y(0), z(0), th(0); // direction variables
 char key(' ');
 
-Teleop::Teleop(ros::NodeHandle* node_handler) {
+Teleop::Teleop(ros::NodeHandle* node_handler) { // constructor to assign
   this->_nh = node_handler;
-
+  this->cmdvel_publisher =
+      this->_nh->advertise<geometry_msgs::Twist>("cmd_vel", this->_rate, this);
 }
 
 Teleop::~Teleop() { // use destructor to delete variables from heap 
   delete this->_nh; 
   }
 
-// To recieve keyboard inputs
-int Teleop::getch(void)
-{
+
+int Teleop::getch(void){ // To recieve keyboard inputs
   int ch;
   struct termios oldt;
   struct termios newt;

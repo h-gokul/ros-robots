@@ -33,9 +33,10 @@
 #include <roomba/teleoperate.h>
 
 int main(int argc, char** argv) {
-  int mode = 2;
-  ros::NodeHandle* node_handler = new ros::NodeHandle();
+  int mode = 1;
   ros::init(argc, argv, "roomba_node");
+  ros::NodeHandle* node_handler = new ros::NodeHandle();
+
 
   if (mode ==1) Teleop teleop(node_handler);
   else if (mode ==2) MoveRoomba move(node_handler);
