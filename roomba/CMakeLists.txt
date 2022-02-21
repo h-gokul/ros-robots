@@ -139,6 +139,7 @@ include
  src/roomba_node.cpp
  src/roomba.cpp
  src/teleoperate.cpp
+ src/teleop_node
  )
 
 ## Rename C++ executable without prefix

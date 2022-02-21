@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @file roomba_node.cpp
+ * @file teleoperate_node.cpp
  * @author Gokul Hari
  * @brief main function for the roomba obstacle avoidance project
  * @version 1.0
@@ -29,15 +29,14 @@
  * @copyright Copyright (c) 2022
  *
  */
-#include <roomba/roomba.h>
 
-int main(int argc, char** argv) {
+#include <roomba/teleoperate.h>
 
-  ros::init(argc, argv, "roomba_node");
-  ros::NodeHandle* node_handler = new ros::NodeHandle();
+int not_main(int argc, char** argv) {
 
-  MoveRoomba move(node_handler);
-  
-  delete node_handler; // delete from heap memory
-  return 0;
+    ros::init(argc, argv, "teleop_node");
+    ros::NodeHandle* node_handler = new ros::NodeHandle();
+    Teleop teleop(node_handler);  
+    delete node_handler; // delete from heap memory
+    return 0;
 }

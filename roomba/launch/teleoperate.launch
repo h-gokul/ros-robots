@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="platform_name" default="turtlebot3" />
+    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_stage_4.launch"/> 
+
+    <group> 
+    	<node pkg="roomba" type="teleop_node" name="teleop_node">
+        </node>        
+	</group>
+
+</launch>

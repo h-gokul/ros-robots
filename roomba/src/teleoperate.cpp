@@ -33,6 +33,7 @@ Teleop::Teleop(ros::NodeHandle* node_handler) { // constructor to assign
   this->_nh = node_handler;
   this->cmdvel_publisher =
       this->_nh->advertise<geometry_msgs::Twist>("cmd_vel", this->_rate, this);
+  this->teleoperate();
 }
 
 Teleop::~Teleop() { // use destructor to delete variables from heap 
